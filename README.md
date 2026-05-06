@@ -18,3 +18,8 @@ The assignment says that the app should read all spreadsheets from a folder.
 - **What happens if a new file is added to the folder while the app is running? Should the app automatically detect and read the new file, or should it only read files that were present when it started?**
 
 *For this implementation, I will assume that the app should only read .xlsx files from a local folder named "Data" that is located in the same directory as the app. It will choose this folder automatically. The app will read all .xlsx files that are present in the "Data" folder when it starts, and it will not automatically detect new files added while it is running. In order to read new files added to the folder, the user must restart the app.*
+
+The assignment says that "the app should work with any spreadsheet in this format." The assignment also provides three .xlsx files as examples.
+- **What does "this format" mean?** In files 1 and 3, the subrecipient names appear in their own column (column C), but in file 2, they appear in column B lumped in with "Subrecipient:"
+
+*For this implementation, I will assume that the app should be able to find subrecipient names in either column B or column C.*
