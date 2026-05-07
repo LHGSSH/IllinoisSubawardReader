@@ -4,7 +4,7 @@ using System.Text;
 
 namespace IllinoisSubawardReader.Interfaces
 {
-    internal interface IDataWriter<T>
+    public interface IDataWriter<T>
     {
         void WriteData(IEnumerable<T> data);
     }
