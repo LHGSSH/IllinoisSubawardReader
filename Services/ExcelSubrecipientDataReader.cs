@@ -15,18 +15,18 @@ namespace IllinoisSubawardReader.Services
             var sheet = workbook.Worksheet(1);
 
             var subrecipientRows = GetSubrecipientRows(sheet);
+            var results = new List<Subrecipient>();
 
             foreach (var row in subrecipientRows)
             {
-                string subrecipientName = GetSubrecipientName(row);
-                double totalSubawardAmount = GetTotalSubawardAmount(row);
-
-                yield return new Subrecipient
+                results.Add(new Subrecipient
                 {
-                    Name = subrecipientName,
-                    TotalSubawardAmount = totalSubawardAmount
-                };
+                    Name = GetSubrecipientName(row),
+                    TotalSubawardAmount = GetTotalSubawardAmount(row)
+                });
             }
+
+            return results;
         }
 
         private IEnumerable<IXLRangeRow> GetSubrecipientRows(IXLWorksheet sheet)
