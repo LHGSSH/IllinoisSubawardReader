@@ -37,7 +37,4 @@ foreach (var filePath in files)
 }
 
 Console.WriteLine("Overall Subrecipient Info (all files combined)");
-foreach (var subrecipient in allSubrecipients)
-{
-    Console.WriteLine($"{subrecipient.Name}: {subrecipient.TotalSubawardAmount:C}");
-}
+writer.WriteData(allSubrecipients);
