@@ -1,15 +1,19 @@
 ﻿using IllinoisSubawardReader.Interfaces;
+using IllinoisSubawardReader.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IllinoisSubawardReader.Services
 {
-    internal class ConsoleSubrecipientDataWriter : IDataWriter
+    internal class ConsoleSubrecipientDataWriter : IDataWriter<Subrecipient>
     {
-        public void WriteData<T>(IEnumerable<T> data)
+        public void WriteData(IEnumerable<Subrecipient> subrecipients)
         {
-            throw new NotImplementedException();
+            foreach (var subrecipient in subrecipients)
+            {
+                Console.WriteLine($"{subrecipient.Name}: {subrecipient.TotalSubawardAmount:C}");
+            }
         }
     }
 }

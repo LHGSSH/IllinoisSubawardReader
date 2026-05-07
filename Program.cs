@@ -5,8 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection()
     .AddSingleton<IDataReader<Subrecipient>, ExcelSubrecipientDataReader>()
+    .AddSingleton<IDataWriter<Subrecipient>, ConsoleSubrecipientDataWriter>()
     .BuildServiceProvider();
 var reader = services.GetRequiredService<IDataReader<Subrecipient>>();
+var writer = services.GetRequiredService<IDataWriter<Subrecipient>>();
 
 var files = Directory.GetFiles(@"Data", "*.xlsx");
 
@@ -17,10 +19,10 @@ foreach (var filePath in files)
     IEnumerable<Subrecipient> currentSubrecipients = reader.ReadData(filePath);
 
     Console.WriteLine(filePath + " - Subrecipient Info");
+    writer.WriteData(currentSubrecipients);
+
     foreach (var currentSubrecipient in currentSubrecipients)
     {
-        Console.WriteLine($"{currentSubrecipient.Name}: {currentSubrecipient.TotalSubawardAmount:C}");
-
         if (allSubrecipients.Any(subrecipient => subrecipient.Name.Equals(currentSubrecipient.Name, StringComparison.OrdinalIgnoreCase)))
         {
             var existingSubrecipient = allSubrecipients.First(subrecipient => subrecipient.Name.Equals(currentSubrecipient.Name, StringComparison.OrdinalIgnoreCase));
