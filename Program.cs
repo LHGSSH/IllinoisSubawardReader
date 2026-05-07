@@ -18,8 +18,11 @@ foreach (var filePath in files)
 {
     IEnumerable<Subrecipient> currentSubrecipients = reader.ReadData(filePath);
 
-    Console.WriteLine(filePath + " - Subrecipient Info");
-    writer.WriteData(currentSubrecipients);
+    Console.WriteLine(filePath + " - Subrecipient Names");
+    foreach (var subrecipient in currentSubrecipients)
+    {
+        Console.WriteLine(subrecipient.Name);
+    }
 
     foreach (var s in currentSubrecipients)
     {
