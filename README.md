@@ -1,36 +1,63 @@
 # IllinoisSubawardReader
-Reads Excel spreadsheets containing subaward and subrecipient info and prints info about them.
 
-For each Excel file in the Data subfolder, it prints:
-- **The file name**
-- **A list of all subrecipient names in the format "Subaward: SubRecipientName"**
+Reads Excel spreadsheets containing subaward and subrecipient info and prints a summary.
 
-Afterwards, it prints **a distinct list of all subrecipients along with the total subaward amount
-that subrecipient received across all files.**
+For each Excel file in the `Data` subfolder, it prints:
+- The file name
+- A list of all subrecipient names found in the file
 
-## Questions I Would Normally Ask + Assumptions I Made
-The assignment says that the app should read all spreadsheets from a folder.
-- **What file types are we supporting? Are we only supporting .xlsx files, or should we also support .xls, .csv, or other formats?**
-- **What folder should the app read from?**
-- **Should the folder be something we decide as developers and hard-code into the app?**
-- **Should we allow the user to choose the folder to read from, perhaps via a pop-up prompt?**
-- **Should we only support reading from local folders, or should we also support reading folders from cloud storage (e.g., Google Drive, Dropbox)?**
-- **What happens if a new file is added to the folder while the app is running? Should the app automatically detect and read the new file, or should it only read files that were present when it started?**
+Afterwards, it prints a distinct list of all subrecipients across all files, along with the total subaward amount each subrecipient received.
 
-*For this implementation, I will assume that the app should only read .xlsx files from a local folder named "Data" that is located in the same directory as the app. It will choose this folder automatically. The app will read all .xlsx files that are present in the "Data" folder when it starts, and it will not automatically detect new files added while it is running. In order to read new files added to the folder, the user must restart the app.*
+---
 
-The assignment says that "the app should work with any spreadsheet in this format." The assignment also provides three .xlsx files as examples.
-- **What does "this format" mean? Does it refer to the file format (.xlsx)? Does it refer to the overall layout of the example spreadsheets (A. Senior Personnel, B. Other Personnel, etc.)?** In files 1 and 3, the subrecipient names appear in their own column (column C), but in file 2, they appear in column B lumped in with "Subrecipient:." Plus, file 3 has more than one Period. So the format varies slightly across the three example files.
-- **Will .xlsx files always have one worksheet like the example files?**
+## Assumptions & Design Decisions
 
-*For this implementation, I will assume that "this format" refers to the general layout of the spreadsheet - the different sections (Senior Personnel, etc.), the data they contain (salary, costs, etc.), and where they are placed in the file. I will also assume that the subrecipient names can either appear in column B or column C, and that the app should be able to read them from either column. Finally, I will assume that the .xlsx files will always have only one worksheet.*
+The following documents questions I would normally raise with a stakeholder, along with the assumptions I made for this implementation.
 
-- **Should we account for decimals in the subaward amounts? In what format should we print the subaward amounts?**
-  - *I will assume that we should account for decimals in the subaward amounts, and that we should print the subaward amounts in a standard USD currency format (e.g., $1,234.56).*
+### File Format & Folder
 
-*** Miscellaneous Questions + Assumptions ***
-- **What do Sponsor and Cost Share underneath the Total column mean? Do we add them together to get the final total?**
-  - *I will assume that we only get the Sponsor amount under the Total column to get the total, as all of the subawards only have values under the Sponsor column.*
-  - *I will assume that the total amounts are always colored blue as they are in the example files.*
+- **What file types should be supported?**
+  *Only `.xlsx` files are supported. `.xls`, `.csv`, and other formats are out of scope.*
 
-*I will assume that the missing subaward name in file 3 is a typo on the user's part, and I should print it even if it's empty.*
+- **What folder should the app read from, and should it be hard-coded?**
+  *The app automatically reads from a folder named `Data` located in the same directory as the executable. The folder is not user-configurable.*
+
+- **Should cloud storage (e.g., Google Drive, Dropbox) be supported?**
+  *No — only local folders are supported.*
+
+- **What if a new file is added while the app is running?**
+  *The app only reads files present in `Data` at startup. To pick up new files, restart the app.*
+
+---
+
+### Spreadsheet Layout
+
+- **What does "this format" mean? The three example files have slightly different layouts.**
+  *File 2 places the subrecipient name in column B alongside the "Subaward:" label, while files 1 and 3 place it in column C. File 3 also has more than one Period column.*
+  *The app handles both column layouts and assumes the general section structure (Senior Personnel, Other Personnel, etc.) is consistent across files.*
+
+- **Will files always have exactly one worksheet?**
+  *Yes, this is assumed.*
+
+---
+
+### Subaward Amounts
+
+- **Should decimals be supported? What format should amounts be printed in?**
+  *Yes. Amounts are printed in standard USD currency format (e.g., `$1,234.56`).*
+
+- **What do Sponsor and Cost Share mean under the Total column? Should they be added together?**
+  *Only the Sponsor amount is used, as all the subawards only have values under that column.*
+
+- **How are the total amounts identified in the spreadsheet?**
+  *Total amounts are assumed to always be colored blue, consistent with the example files.*
+
+- **Do we need to handle the Exempt Subaward Costs?**
+  *No, these are out of scope.*
+
+---
+
+### Miscellaneous
+
+- **File 3 appears to have a missing subrecipient name.**
+  *Assumed to be a typo. The entry is included in the output with an empty name.*
