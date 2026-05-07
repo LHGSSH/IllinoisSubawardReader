@@ -6,7 +6,7 @@ using System.Text;
 
 namespace IllinoisSubawardReader.Services
 {
-    internal class ConsoleSubrecipientDataWriter : IDataWriter<Subrecipient>
+    public class ConsoleSubrecipientDataWriter : IDataWriter<Subrecipient>
     {
         public void WriteData(IEnumerable<Subrecipient> subrecipients)
         {

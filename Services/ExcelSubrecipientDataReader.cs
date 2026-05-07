@@ -7,7 +7,7 @@ using ClosedXML.Excel;
 
 namespace IllinoisSubawardReader.Services
 {
-    internal class ExcelSubrecipientDataReader : IDataReader<Subrecipient>
+    public class ExcelSubrecipientDataReader : IDataReader<Subrecipient>
     {
         public IEnumerable<Subrecipient> ReadData(string filePath)
         {
