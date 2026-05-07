@@ -12,7 +12,7 @@ var writer = services.GetRequiredService<IDataWriter<Subrecipient>>();
 
 var files = Directory.GetFiles(@"Data", "*.xlsx");
 
-IEnumerable<Subrecipient> allSubrecipients = Enumerable.Empty<Subrecipient>();
+var allSubrecipients = new Dictionary<string, Subrecipient>(StringComparer.OrdinalIgnoreCase);
 
 foreach (var filePath in files)
 {
@@ -21,20 +21,19 @@ foreach (var filePath in files)
     Console.WriteLine(filePath + " - Subrecipient Info");
     writer.WriteData(currentSubrecipients);
 
-    foreach (var currentSubrecipient in currentSubrecipients)
+    foreach (var s in currentSubrecipients)
     {
-        if (allSubrecipients.Any(subrecipient => subrecipient.Name.Equals(currentSubrecipient.Name, StringComparison.OrdinalIgnoreCase)))
+        if (allSubrecipients.TryGetValue(s.Name, out var existing))
         {
-            var existingSubrecipient = allSubrecipients.First(subrecipient => subrecipient.Name.Equals(currentSubrecipient.Name, StringComparison.OrdinalIgnoreCase));
-            existingSubrecipient.TotalSubawardAmount += currentSubrecipient.TotalSubawardAmount;
+            existing.TotalSubawardAmount += s.TotalSubawardAmount;
         }
         else
         {
-            allSubrecipients = allSubrecipients.Append(currentSubrecipient);
+            allSubrecipients[s.Name] = s;
         }
     }
     Console.WriteLine();
 }
 
 Console.WriteLine("Overall Subrecipient Info (all files combined)");
-writer.WriteData(allSubrecipients);
+writer.WriteData(allSubrecipients.Values);
