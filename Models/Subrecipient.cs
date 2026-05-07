@@ -6,7 +6,7 @@ namespace IllinoisSubawardReader.Models
 {
     public class Subrecipient
     {
-        public string Name = string.Empty;
-        public double TotalSubawardAmount = 0;
+        public string Name { get; set; } = string.Empty;
+        public double TotalSubawardAmount { get; set; }
     }
 }
