@@ -21,5 +21,16 @@ The assignment says that the app should read all spreadsheets from a folder.
 
 The assignment says that "the app should work with any spreadsheet in this format." The assignment also provides three .xlsx files as examples.
 - **What does "this format" mean? Does it refer to the file format (.xlsx)? Does it refer to the overall layout of the example spreadsheets (A. Senior Personnel, B. Other Personnel, etc.)?** In files 1 and 3, the subrecipient names appear in their own column (column C), but in file 2, they appear in column B lumped in with "Subrecipient:." Plus, file 3 has more than one Period. So the format varies slightly across the three example files.
+- **Will .xlsx files always have one worksheet like the example files?**
 
-*For this implementation, I will assume that "this format" refers to the general layout of the spreadsheet - the different sections (Senior Personnel, etc.), the data they contain (salary, costs, etc.), and where they are placed in the file. I will also assume that the subrecipient names can either appear in column B or column C, and that the app should be able to read them from either column.*
+*For this implementation, I will assume that "this format" refers to the general layout of the spreadsheet - the different sections (Senior Personnel, etc.), the data they contain (salary, costs, etc.), and where they are placed in the file. I will also assume that the subrecipient names can either appear in column B or column C, and that the app should be able to read them from either column. Finally, I will assume that the .xlsx files will always have only one worksheet.*
+
+- **Should we account for decimals in the subaward amounts? In what format should we print the subaward amounts?**
+  - *I will assume that we should account for decimals in the subaward amounts, and that we should print the subaward amounts in a standard USD currency format (e.g., $1,234.56).*
+
+*** Miscellaneous Questions + Assumptions ***
+- **What do Sponsor and Cost Share underneath the Total column mean? Do we add them together to get the final total?**
+  - *I will assume that we only get the Sponsor amount under the Total column to get the total, as all of the subawards only have values under the Sponsor column.*
+  - *I will assume that the total amounts are always colored blue as they are in the example files.*
+
+*I will assume that the missing subaward name in file 3 is a typo on the user's part, and I should print it even if it's empty.*

@@ -8,7 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <None Remove="Data\SubawardBudgetExample1.xlsx" />
+    <None Remove="Data\SubawardBudgetExample2.xlsx" />
+    <None Remove="Data\SubawardBudgetExample3.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\SubawardBudgetExample1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\SubawardBudgetExample2.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\SubawardBudgetExample3.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
   </ItemGroup>
 
 </Project>
